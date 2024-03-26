@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MebelModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameC" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressC" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumberC" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="ID_Delivery" />
+          </Key>
+          <Property Name="ID_Delivery" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Zakaz" Type="int" Nullable="false" />
+          <Property Name="ID_Sotrudnik" Type="int" Nullable="false" />
+          <Property Name="AddressD" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DataD" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TimeD" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dolznostb">
+          <Key>
+            <PropertyRef Name="ID_Dolznostb" />
+          </Key>
+          <Property Name="ID_Dolznostb" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameD" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinalOrder">
+          <Key>
+            <PropertyRef Name="ID_FinalOrder" />
+          </Key>
+          <Property Name="ID_FinalOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Zakaz" Type="int" Nullable="false" />
+          <Property Name="Summa" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="ID_Furniture" />
+          </Key>
+          <Property Name="ID_Furniture" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameF" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_FurnitureType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FurnitureType">
+          <Key>
+            <PropertyRef Name="ID_FurnitureType" />
+          </Key>
+          <Property Name="ID_FurnitureType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameFT" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shourum">
+          <Key>
+            <PropertyRef Name="ID_Shourum" />
+          </Key>
+          <Property Name="ID_Shourum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameShourum" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AddressS" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShourumContent">
+          <Key>
+            <PropertyRef Name="ID_ShourumContent" />
+          </Key>
+          <Property Name="ID_ShourumContent" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Shourum" Type="int" Nullable="false" />
+          <Property Name="ID_Furniture" Type="int" Nullable="false" />
+          <Property Name="Kolichestvo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sotrudnik">
+          <Key>
+            <PropertyRef Name="ID_Sotrudnik" />
+          </Key>
+          <Property Name="ID_Sotrudnik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleNameS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_Dolznostb" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="ID_Zakaz" />
+          </Key>
+          <Property Name="ID_Zakaz" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ShourumContent" Type="int" Nullable="false" />
+          <Property Name="ID_Client" Type="int" Nullable="false" />
+          <Property Name="DataZ" Type="date" Nullable="false" />
+          <Property Name="TimeZ" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Delivery__ID_Sot__6C190EBB">
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudnik">
+              <PropertyRef Name="ID_Sotrudnik" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="ID_Sotrudnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__ID_Zak__6B24EA82">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="ID_Zakaz" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="ID_Zakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FinalOrde__ID_Za__68487DD7">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="1" />
+          <End Role="FinalOrder" Type="Self.FinalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="ID_Zakaz" />
+            </Principal>
+            <Dependent Role="FinalOrder">
+              <PropertyRef Name="ID_Zakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Furniture__ID_Fu__4D94879B">
+          <End Role="FurnitureType" Type="Self.FurnitureType" Multiplicity="1" />
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FurnitureType">
+              <PropertyRef Name="ID_FurnitureType" />
+            </Principal>
+            <Dependent Role="Furniture">
+              <PropertyRef Name="ID_FurnitureType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShourumCo__ID_Fu__619B8048">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="ID_Furniture" />
+            </Principal>
+            <Dependent Role="ShourumContent">
+              <PropertyRef Name="ID_Furniture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShourumCo__ID_Sh__60A75C0F">
+          <End Role="Shourum" Type="Self.Shourum" Multiplicity="1" />
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shourum">
+              <PropertyRef Name="ID_Shourum" />
+            </Principal>
+            <Dependent Role="ShourumContent">
+              <PropertyRef Name="ID_Shourum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sotrudnik__ID_Do__571DF1D5">
+          <End Role="Dolznostb" Type="Self.Dolznostb" Multiplicity="1" />
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolznostb">
+              <PropertyRef Name="ID_Dolznostb" />
+            </Principal>
+            <Dependent Role="Sotrudnik">
+              <PropertyRef Name="ID_Dolznostb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakaz__ID_Client__656C112C">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakaz__ID_Shouru__6477ECF3">
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShourumContent">
+              <PropertyRef Name="ID_ShourumContent" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="ID_ShourumContent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MebelModel1Container">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dolznostb" EntityType="Self.Dolznostb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinalOrder" EntityType="Self.FinalOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Furniture" EntityType="Self.Furniture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FurnitureType" EntityType="Self.FurnitureType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shourum" EntityType="Self.Shourum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShourumContent" EntityType="Self.ShourumContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakaz" EntityType="Self.Zakaz" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Delivery__ID_Sot__6C190EBB" Association="Self.FK__Delivery__ID_Sot__6C190EBB">
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__ID_Zak__6B24EA82" Association="Self.FK__Delivery__ID_Zak__6B24EA82">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FinalOrde__ID_Za__68487DD7" Association="Self.FK__FinalOrde__ID_Za__68487DD7">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="FinalOrder" EntitySet="FinalOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Furniture__ID_Fu__4D94879B" Association="Self.FK__Furniture__ID_Fu__4D94879B">
+            <End Role="FurnitureType" EntitySet="FurnitureType" />
+            <End Role="Furniture" EntitySet="Furniture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShourumCo__ID_Fu__619B8048" Association="Self.FK__ShourumCo__ID_Fu__619B8048">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShourumCo__ID_Sh__60A75C0F" Association="Self.FK__ShourumCo__ID_Sh__60A75C0F">
+            <End Role="Shourum" EntitySet="Shourum" />
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sotrudnik__ID_Do__571DF1D5" Association="Self.FK__Sotrudnik__ID_Do__571DF1D5">
+            <End Role="Dolznostb" EntitySet="Dolznostb" />
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakaz__ID_Client__656C112C" Association="Self.FK__Zakaz__ID_Client__656C112C">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakaz__ID_Shouru__6477ECF3" Association="Self.FK__Zakaz__ID_Shouru__6477ECF3">
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MebelModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumberC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Zakaz" Relationship="Self.FK__Zakaz__ID_Client__656C112C" FromRole="Client" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="ID_Delivery" />
+          </Key>
+          <Property Name="ID_Delivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Zakaz" Type="Int32" Nullable="false" />
+          <Property Name="ID_Sotrudnik" Type="Int32" Nullable="false" />
+          <Property Name="AddressD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Sotrudnik" Relationship="Self.FK__Delivery__ID_Sot__6C190EBB" FromRole="Delivery" ToRole="Sotrudnik" />
+          <NavigationProperty Name="Zakaz" Relationship="Self.FK__Delivery__ID_Zak__6B24EA82" FromRole="Delivery" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Dolznostb">
+          <Key>
+            <PropertyRef Name="ID_Dolznostb" />
+          </Key>
+          <Property Name="ID_Dolznostb" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Sotrudnik" Relationship="Self.FK__Sotrudnik__ID_Do__571DF1D5" FromRole="Dolznostb" ToRole="Sotrudnik" />
+        </EntityType>
+        <EntityType Name="FinalOrder">
+          <Key>
+            <PropertyRef Name="ID_FinalOrder" />
+          </Key>
+          <Property Name="ID_FinalOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Zakaz" Type="Int32" Nullable="false" />
+          <Property Name="Summa" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Zakaz" Relationship="Self.FK__FinalOrde__ID_Za__68487DD7" FromRole="FinalOrder" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="ID_Furniture" />
+          </Key>
+          <Property Name="ID_Furniture" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameF" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_FurnitureType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FurnitureType" Relationship="Self.FK__Furniture__ID_Fu__4D94879B" FromRole="Furniture" ToRole="FurnitureType" />
+          <NavigationProperty Name="ShourumContent" Relationship="Self.FK__ShourumCo__ID_Fu__619B8048" FromRole="Furniture" ToRole="ShourumContent" />
+        </EntityType>
+        <EntityType Name="FurnitureType">
+          <Key>
+            <PropertyRef Name="ID_FurnitureType" />
+          </Key>
+          <Property Name="ID_FurnitureType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameFT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Furniture" Relationship="Self.FK__Furniture__ID_Fu__4D94879B" FromRole="FurnitureType" ToRole="Furniture" />
+        </EntityType>
+        <EntityType Name="Shourum">
+          <Key>
+            <PropertyRef Name="ID_Shourum" />
+          </Key>
+          <Property Name="ID_Shourum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameShourum" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ShourumContent" Relationship="Self.FK__ShourumCo__ID_Sh__60A75C0F" FromRole="Shourum" ToRole="ShourumContent" />
+        </EntityType>
+        <EntityType Name="ShourumContent">
+          <Key>
+            <PropertyRef Name="ID_ShourumContent" />
+          </Key>
+          <Property Name="ID_ShourumContent" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Shourum" Type="Int32" Nullable="false" />
+          <Property Name="ID_Furniture" Type="Int32" Nullable="false" />
+          <Property Name="Kolichestvo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Furniture" Relationship="Self.FK__ShourumCo__ID_Fu__619B8048" FromRole="ShourumContent" ToRole="Furniture" />
+          <NavigationProperty Name="Shourum" Relationship="Self.FK__ShourumCo__ID_Sh__60A75C0F" FromRole="ShourumContent" ToRole="Shourum" />
+          <NavigationProperty Name="Zakaz" Relationship="Self.FK__Zakaz__ID_Shouru__6477ECF3" FromRole="ShourumContent" ToRole="Zakaz" />
+        </EntityType>
+        <EntityType Name="Sotrudnik">
+          <Key>
+            <PropertyRef Name="ID_Sotrudnik" />
+          </Key>
+          <Property Name="ID_Sotrudnik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MiddleNameS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Dolznostb" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK__Delivery__ID_Sot__6C190EBB" FromRole="Sotrudnik" ToRole="Delivery" />
+          <NavigationProperty Name="Dolznostb" Relationship="Self.FK__Sotrudnik__ID_Do__571DF1D5" FromRole="Sotrudnik" ToRole="Dolznostb" />
+        </EntityType>
+        <EntityType Name="Zakaz">
+          <Key>
+            <PropertyRef Name="ID_Zakaz" />
+          </Key>
+          <Property Name="ID_Zakaz" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ShourumContent" Type="Int32" Nullable="false" />
+          <Property Name="ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="DataZ" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeZ" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Zakaz__ID_Client__656C112C" FromRole="Zakaz" ToRole="Client" />
+          <NavigationProperty Name="Delivery" Relationship="Self.FK__Delivery__ID_Zak__6B24EA82" FromRole="Zakaz" ToRole="Delivery" />
+          <NavigationProperty Name="FinalOrder" Relationship="Self.FK__FinalOrde__ID_Za__68487DD7" FromRole="Zakaz" ToRole="FinalOrder" />
+          <NavigationProperty Name="ShourumContent" Relationship="Self.FK__Zakaz__ID_Shouru__6477ECF3" FromRole="Zakaz" ToRole="ShourumContent" />
+        </EntityType>
+        <Association Name="FK__Zakaz__ID_Client__656C112C">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__ID_Sot__6C190EBB">
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sotrudnik">
+              <PropertyRef Name="ID_Sotrudnik" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="ID_Sotrudnik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Delivery__ID_Zak__6B24EA82">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="ID_Zakaz" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="ID_Zakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sotrudnik__ID_Do__571DF1D5">
+          <End Role="Dolznostb" Type="Self.Dolznostb" Multiplicity="1" />
+          <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dolznostb">
+              <PropertyRef Name="ID_Dolznostb" />
+            </Principal>
+            <Dependent Role="Sotrudnik">
+              <PropertyRef Name="ID_Dolznostb" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FinalOrde__ID_Za__68487DD7">
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="1" />
+          <End Role="FinalOrder" Type="Self.FinalOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakaz">
+              <PropertyRef Name="ID_Zakaz" />
+            </Principal>
+            <Dependent Role="FinalOrder">
+              <PropertyRef Name="ID_Zakaz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Furniture__ID_Fu__4D94879B">
+          <End Role="FurnitureType" Type="Self.FurnitureType" Multiplicity="1" />
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FurnitureType">
+              <PropertyRef Name="ID_FurnitureType" />
+            </Principal>
+            <Dependent Role="Furniture">
+              <PropertyRef Name="ID_FurnitureType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShourumCo__ID_Fu__619B8048">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="ID_Furniture" />
+            </Principal>
+            <Dependent Role="ShourumContent">
+              <PropertyRef Name="ID_Furniture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShourumCo__ID_Sh__60A75C0F">
+          <End Role="Shourum" Type="Self.Shourum" Multiplicity="1" />
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shourum">
+              <PropertyRef Name="ID_Shourum" />
+            </Principal>
+            <Dependent Role="ShourumContent">
+              <PropertyRef Name="ID_Shourum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakaz__ID_Shouru__6477ECF3">
+          <End Role="ShourumContent" Type="Self.ShourumContent" Multiplicity="1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShourumContent">
+              <PropertyRef Name="ID_ShourumContent" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="ID_ShourumContent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MebelEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" />
+          <EntitySet Name="Dolznostb" EntityType="Self.Dolznostb" />
+          <EntitySet Name="FinalOrder" EntityType="Self.FinalOrder" />
+          <EntitySet Name="Furniture" EntityType="Self.Furniture" />
+          <EntitySet Name="FurnitureType" EntityType="Self.FurnitureType" />
+          <EntitySet Name="Shourum" EntityType="Self.Shourum" />
+          <EntitySet Name="ShourumContent" EntityType="Self.ShourumContent" />
+          <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" />
+          <EntitySet Name="Zakaz" EntityType="Self.Zakaz" />
+          <AssociationSet Name="FK__Zakaz__ID_Client__656C112C" Association="Self.FK__Zakaz__ID_Client__656C112C">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__ID_Sot__6C190EBB" Association="Self.FK__Delivery__ID_Sot__6C190EBB">
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Delivery__ID_Zak__6B24EA82" Association="Self.FK__Delivery__ID_Zak__6B24EA82">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sotrudnik__ID_Do__571DF1D5" Association="Self.FK__Sotrudnik__ID_Do__571DF1D5">
+            <End Role="Dolznostb" EntitySet="Dolznostb" />
+            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FinalOrde__ID_Za__68487DD7" Association="Self.FK__FinalOrde__ID_Za__68487DD7">
+            <End Role="Zakaz" EntitySet="Zakaz" />
+            <End Role="FinalOrder" EntitySet="FinalOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Furniture__ID_Fu__4D94879B" Association="Self.FK__Furniture__ID_Fu__4D94879B">
+            <End Role="FurnitureType" EntitySet="FurnitureType" />
+            <End Role="Furniture" EntitySet="Furniture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShourumCo__ID_Fu__619B8048" Association="Self.FK__ShourumCo__ID_Fu__619B8048">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShourumCo__ID_Sh__60A75C0F" Association="Self.FK__ShourumCo__ID_Sh__60A75C0F">
+            <End Role="Shourum" EntitySet="Shourum" />
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakaz__ID_Shouru__6477ECF3" Association="Self.FK__Zakaz__ID_Shouru__6477ECF3">
+            <End Role="ShourumContent" EntitySet="ShourumContent" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MebelModel1Container" CdmEntityContainer="MebelEntities1">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="MebelModel1.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="NameC" ColumnName="NameC" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="AddressC" ColumnName="AddressC" />
+                <ScalarProperty Name="PhoneNumberC" ColumnName="PhoneNumberC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delivery">
+            <EntityTypeMapping TypeName="MebelModel1.Delivery">
+              <MappingFragment StoreEntitySet="Delivery">
+                <ScalarProperty Name="ID_Delivery" ColumnName="ID_Delivery" />
+                <ScalarProperty Name="ID_Zakaz" ColumnName="ID_Zakaz" />
+                <ScalarProperty Name="ID_Sotrudnik" ColumnName="ID_Sotrudnik" />
+                <ScalarProperty Name="AddressD" ColumnName="AddressD" />
+                <ScalarProperty Name="DataD" ColumnName="DataD" />
+                <ScalarProperty Name="TimeD" ColumnName="TimeD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dolznostb">
+            <EntityTypeMapping TypeName="MebelModel1.Dolznostb">
+              <MappingFragment StoreEntitySet="Dolznostb">
+                <ScalarProperty Name="ID_Dolznostb" ColumnName="ID_Dolznostb" />
+                <ScalarProperty Name="NameD" ColumnName="NameD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinalOrder">
+            <EntityTypeMapping TypeName="MebelModel1.FinalOrder">
+              <MappingFragment StoreEntitySet="FinalOrder">
+                <ScalarProperty Name="ID_FinalOrder" ColumnName="ID_FinalOrder" />
+                <ScalarProperty Name="ID_Zakaz" ColumnName="ID_Zakaz" />
+                <ScalarProperty Name="Summa" ColumnName="Summa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Furniture">
+            <EntityTypeMapping TypeName="MebelModel1.Furniture">
+              <MappingFragment StoreEntitySet="Furniture">
+                <ScalarProperty Name="ID_Furniture" ColumnName="ID_Furniture" />
+                <ScalarProperty Name="NameF" ColumnName="NameF" />
+                <ScalarProperty Name="ID_FurnitureType" ColumnName="ID_FurnitureType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FurnitureType">
+            <EntityTypeMapping TypeName="MebelModel1.FurnitureType">
+              <MappingFragment StoreEntitySet="FurnitureType">
+                <ScalarProperty Name="ID_FurnitureType" ColumnName="ID_FurnitureType" />
+                <ScalarProperty Name="NameFT" ColumnName="NameFT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shourum">
+            <EntityTypeMapping TypeName="MebelModel1.Shourum">
+              <MappingFragment StoreEntitySet="Shourum">
+                <ScalarProperty Name="ID_Shourum" ColumnName="ID_Shourum" />
+                <ScalarProperty Name="NameShourum" ColumnName="NameShourum" />
+                <ScalarProperty Name="AddressS" ColumnName="AddressS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShourumContent">
+            <EntityTypeMapping TypeName="MebelModel1.ShourumContent">
+              <MappingFragment StoreEntitySet="ShourumContent">
+                <ScalarProperty Name="ID_ShourumContent" ColumnName="ID_ShourumContent" />
+                <ScalarProperty Name="ID_Shourum" ColumnName="ID_Shourum" />
+                <ScalarProperty Name="ID_Furniture" ColumnName="ID_Furniture" />
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sotrudnik">
+            <EntityTypeMapping TypeName="MebelModel1.Sotrudnik">
+              <MappingFragment StoreEntitySet="Sotrudnik">
+                <ScalarProperty Name="ID_Sotrudnik" ColumnName="ID_Sotrudnik" />
+                <ScalarProperty Name="NameS" ColumnName="NameS" />
+                <ScalarProperty Name="MiddleNameS" ColumnName="MiddleNameS" />
+                <ScalarProperty Name="ID_Dolznostb" ColumnName="ID_Dolznostb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakaz">
+            <EntityTypeMapping TypeName="MebelModel1.Zakaz">
+              <MappingFragment StoreEntitySet="Zakaz">
+                <ScalarProperty Name="ID_Zakaz" ColumnName="ID_Zakaz" />
+                <ScalarProperty Name="ID_ShourumContent" ColumnName="ID_ShourumContent" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="DataZ" ColumnName="DataZ" />
+                <ScalarProperty Name="TimeZ" ColumnName="TimeZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

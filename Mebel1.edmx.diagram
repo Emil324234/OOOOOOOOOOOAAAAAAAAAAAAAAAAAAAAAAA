@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1ba74a7cd1b4bd0ac12343c15b06b10" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="MebelModel1.Client" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Delivery" Width="1.5" PointX="9.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Dolznostb" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.FinalOrder" Width="1.5" PointX="9.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Furniture" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.FurnitureType" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Shourum" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.ShourumContent" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Sotrudnik" Width="1.5" PointX="7.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MebelModel1.Zakaz" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="MebelModel1.FK__Zakaz__ID_Client__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__Delivery__ID_Sot__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__Delivery__ID_Zak__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__Sotrudnik__ID_Do__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__FinalOrde__ID_Za__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__Furniture__ID_Fu__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__ShourumCo__ID_Fu__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__ShourumCo__ID_Sh__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="MebelModel1.FK__Zakaz__ID_Shouru__6477ECF3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
